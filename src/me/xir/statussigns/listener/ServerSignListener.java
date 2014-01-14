@@ -9,6 +9,11 @@ public class ServerSignListener implements Listener {
 	
 	private StatusSigns plugin;
 	
+	public ServerSignListener(StatusSigns p) {
+		plugin = p;
+	}
+
+	
 	public void onSignChange(SignChangeEvent e) {
 		String servername = plugin.getConfig().getString("serversigns.servers" + e.getLine(1));
 		String serverip = plugin.getConfig().getString(servername + "ip");
