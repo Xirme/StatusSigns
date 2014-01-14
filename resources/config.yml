@@ -1,5 +1,8 @@
 serversigns:
     servers:
-        servername:
+        server1:
+          ip: 127.0.0.1
+          port: 25565
+        server2:
           ip: 127.0.0.1
           port: 25565
