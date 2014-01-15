@@ -2,6 +2,7 @@ package me.xir.statussigns.listener;
 
 import me.xir.statussigns.StatusSigns;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -19,7 +20,7 @@ public class ServerSignListener implements Listener {
 		
 		// Rule one: Make a variable for everything you call more than once.
 		FileConfiguration config = plugin.getConfig();
-		String servername = e.getLine(1));
+		String servername = e.getLine(1);
 		
 		if (e.getLine(0).equalsIgnoreCase("[ServerSigns]")) {
 			// Rule two: Don't make a variable for anything you only call once.
