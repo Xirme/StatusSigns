@@ -16,11 +16,15 @@ public class ServerSignListener implements Listener {
 
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
-		String servername = plugin.getConfig().getString("serversigns.servers." + e.getLine(1));
-		String serverip = plugin.getConfig().getString(servername + ".ip");
+		
+		// Rule one: Make a variable for everything you call more than once.
+		FileConfiguration config = plugin.getConfig();
+		String servername = e.getLine(1));
+		
 		if (e.getLine(0).equalsIgnoreCase("[ServerSigns]")) {
-			if (e.getLine(1).equalsIgnoreCase(servername)) {
-				e.setLine(3, serverip);
+			// Rule two: Don't make a variable for anything you only call once.
+			if (config.getString("serversigns.servers." + servername) != null) {
+				e.setLine(3, config.getString("serversigns.servers." + servername + ".ip"));
 				System.out.println("A sign was registered.");
 			} System.out.println("derp1");
 		} System.out.println("derp2");
