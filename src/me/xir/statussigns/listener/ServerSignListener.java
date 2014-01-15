@@ -2,6 +2,7 @@ package me.xir.statussigns.listener;
 
 import me.xir.statussigns.StatusSigns;
 
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
@@ -13,7 +14,7 @@ public class ServerSignListener implements Listener {
 		plugin = p;
 	}
 
-	
+	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
 		String servername = plugin.getConfig().getString("serversigns.servers" + e.getLine(1));
 		String serverip = plugin.getConfig().getString(servername + "ip");
