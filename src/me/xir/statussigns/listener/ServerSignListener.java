@@ -16,8 +16,8 @@ public class ServerSignListener implements Listener {
 
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
-		String servername = plugin.getConfig().getString("serversigns.servers" + e.getLine(1));
-		String serverip = plugin.getConfig().getString(servername + "ip");
+		String servername = plugin.getConfig().getString("serversigns.servers." + e.getLine(1));
+		String serverip = plugin.getConfig().getString(servername + ".ip");
 		if (e.getLine(0).equalsIgnoreCase("[ServerSigns]")) {
 			if (e.getLine(1).equalsIgnoreCase(servername)) {
 				e.setLine(3, serverip);
@@ -25,5 +25,4 @@ public class ServerSignListener implements Listener {
 			}
 		}
 	}
-
 }
