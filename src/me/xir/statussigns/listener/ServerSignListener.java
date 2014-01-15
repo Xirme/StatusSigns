@@ -22,7 +22,7 @@ public class ServerSignListener implements Listener {
 			if (e.getLine(1).equalsIgnoreCase(servername)) {
 				e.setLine(3, serverip);
 				System.out.println("A sign was registered.");
-			} System.out.println("A sign was registered.");
-		} System.out.println("A sign was registered.");
+			} System.out.println("derp1");
+		} System.out.println("derp2");
 	}
 }
