@@ -33,20 +33,15 @@ public class ServerSignListener implements Listener {
 		String player = e.getPlayer().getName();
 		String servername = e.getLine(1);
 		
-		if (e.getLine(0).equalsIgnoreCase("[ServerSigns]")) {
+		if (e.getLine(0).equalsIgnoreCase("[statussign]")) {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
 				StatusSignsDatatypes query = queryServer(servername);
 	
-				/*TODO: Clear the sign before data is outputted to the sign so the sign looks like:
-				 * Example Server
-				 * Status
-				 * Players: 
-				 * As end result.
-				 * 
+				/*
 				 * TODO: Threaded checking and checks done every 60 seconds.
 				 */
-				
+				e.setLine(0, servername);
 				if (query == null || !query.status) {
 					//TODO: Handle offline properly.
 					e.setLine(1, "Offline");
