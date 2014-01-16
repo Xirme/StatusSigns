@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import me.xir.statussigns.StatusSigns;
+import me.xir.statussigns.StatusSignsDatatypes;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
@@ -48,7 +49,7 @@ public class ServerSignListener implements Listener {
 		}
 	}
 	
-	public static HashMap queryServer(String server) {
+	public static StatusSignsDatatypes queryServer(String server) {
 		FileConfiguration config = plugin.getConfig();
 		
 		try { 
@@ -57,7 +58,7 @@ public class ServerSignListener implements Listener {
 				String data = reader.readLine();
 				
 				Gson gson = new Gson();
-				return gson.fromJson(data,  HashMap.class);
+				return gson.fromJson(data,  StatusSignsDatatypes.class);
 			}
 		} catch (MalformedURLException ex) {
 			ex.printStackTrace();
