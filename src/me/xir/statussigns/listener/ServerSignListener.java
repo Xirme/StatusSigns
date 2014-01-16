@@ -10,6 +10,7 @@ import java.util.HashMap;
 import me.xir.statussigns.StatusSigns;
 import me.xir.statussigns.StatusSignsDatatypes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.event.EventHandler;
@@ -54,6 +55,10 @@ public class ServerSignListener implements Listener {
 					e.setLine(1, "Online");
 				}
 				e.setLine(2, "Players: " + query.players);
+				
+				player.sendMessage(ChatColor.GREEN + "StatusSign registered sign for " + servername);
+			} else {
+				player.sendMessage(ChatColor.RED + "Server does not exist in config.yml!");
 			}
 		}
 	}
