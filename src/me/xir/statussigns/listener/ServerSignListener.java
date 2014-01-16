@@ -37,15 +37,15 @@ public class ServerSignListener implements Listener {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
 				
-				StatusSignsDatatypes JSON = queryServer(e.getLine(1));
+				StatusSignsDatatypes query = queryServer(e.getLine(1));
 				//do to check if offline or online
-				if (JSON == null || JSON.get("status").equals("false")) {
+				if (query == null || !query.status) {
 					//TODO: Handle offline properly.
 					e.setLine(2, "Offline");
 				} else {
 					e.setLine(2, "Online");
 				}
-				e.setLine(3, "Players: " + JSON.get("players"));
+				e.setLine(3, "Players: " + query.players);
 			}
 		}
 	}
