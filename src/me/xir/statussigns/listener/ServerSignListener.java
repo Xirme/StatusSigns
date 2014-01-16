@@ -23,26 +23,7 @@ public class ServerSignListener implements Listener {
 		plugin = p;
 	}
 	
-	public static HashMap queryServer(SignChangeEvent e) {
-		FileConfiguration config = plugin.getConfig();
-		String player = e.getPlayer().getName();
-		String servername = e.getLine(1);
-		
-		try { 
-			URL url = new URL("http://api.iamphoenix.me/get/?server_ip=" + config.getString("serversigns.servers." + servername + ".ip") + ":" + config.getString("serversigns.servers." + servername + ".port"));
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
-				String data = reader.readLine();
-				
-				Gson gson = new Gson();
-				return gson.fromJson(data,  HashMap.class);
-			}
-		} catch (MalformedURLException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return null;
-	}
+	HashMap JSON = queryServer(SignChangeEvent.getLine(1));
 	
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
@@ -56,9 +37,31 @@ public class ServerSignListener implements Listener {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
 				//do to check if offline or online
-				
+				if (JSON == null || JSON.get("status").equals("false")) {
+					e.setLine(3, "Offline");
+				} else {
+					e.setLine(3, "Online");
+				}
 			}
 		}
 	}
 	
+	public static HashMap queryServer(String server) {
+		FileConfiguration config = plugin.getConfig();
+		
+		try { 
+			URL url = new URL("http://api.iamphoenix.me/get/?server_ip=" + config.getString("serversigns.servers." + server + ".ip") + ":" + config.getString("serversigns.servers." + server + ".port"));
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+				String data = reader.readLine();
+				
+				Gson gson = new Gson();
+				return gson.fromJson(data,  HashMap.class);
+			}
+		} catch (MalformedURLException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }
