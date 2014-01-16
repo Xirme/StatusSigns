@@ -17,7 +17,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class ServerSignListener implements Listener {
 	
-	private StatusSigns plugin;
+	public static StatusSigns plugin;
 	
 	public ServerSignListener(StatusSigns p) {
 		plugin = p;
@@ -35,20 +35,28 @@ public class ServerSignListener implements Listener {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
 				//do to check if offline or online
-				try { 
-					URL url = new URL("http://api.iamphoenix.me/get/?server_ip=" + config.getString("serversigns.servers." + servername + ".ip") + ":" + config.getString("serversigns.servers." + servername + ".port"));
-					try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
-						String data = reader.readLine();
-						
-						Gson gson = new Gson();
-						return gson.fromJson(data,  HashMap.class);
-					}
-				} catch (MalformedURLException ex) {
-					player.sendMessage(ex.printStackTrace());
-				} catch (IOException ex) {
-					player.sendMessage(ex.printStackTrace());
-				}
+
 			}
 		}
+	}
+	
+	public static HashMap queryServer(String server) {
+		
+		FileConfiguration config = plugin.getConfig();
+		
+		try { 
+			URL url = new URL("http://api.iamphoenix.me/get/?server_ip=" + config.getString("serversigns.servers." + servername + ".ip") + ":" + config.getString("serversigns.servers." + servername + ".port"));
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+				String data = reader.readLine();
+				
+				Gson gson = new Gson();
+				return gson.fromJson(data,  HashMap.class);
+			}
+		} catch (MalformedURLException ex) {
+			player.sendMessage(ex.printStackTrace());
+		} catch (IOException ex) {
+			player.sendMessage(ex.printStackTrace());
+		}
+		return null;
 	}
 }
