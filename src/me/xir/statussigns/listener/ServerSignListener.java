@@ -23,8 +23,6 @@ public class ServerSignListener implements Listener {
 		plugin = p;
 	}
 	
-	HashMap JSON = queryServer(SignChangeEvent.getLine(1));
-	
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
 		
@@ -36,6 +34,8 @@ public class ServerSignListener implements Listener {
 		if (e.getLine(0).equalsIgnoreCase("[ServerSigns]")) {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
+				
+				HashMap JSON = queryServer(e.getLine(1));
 				//do to check if offline or online
 				if (JSON == null || JSON.get("status").equals("false")) {
 					e.setLine(3, "Offline");
