@@ -38,10 +38,12 @@ public class ServerSignListener implements Listener {
 				HashMap JSON = queryServer(e.getLine(1));
 				//do to check if offline or online
 				if (JSON == null || JSON.get("status").equals("false")) {
-					e.setLine(3, "Offline");
+					//TODO: Handle offline properly.
+					e.setLine(2, "Offline");
 				} else {
-					e.setLine(3, "Online");
+					e.setLine(2, "Online");
 				}
+				e.setLine(3, "Players: " + JSON.get("players"));
 			}
 		}
 	}
