@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 
 import me.xir.statussigns.StatusSigns;
 import me.xir.statussigns.StatusSignsDatatypes;
@@ -56,9 +55,9 @@ public class ServerSignListener implements Listener {
 				}
 				e.setLine(2, "Players: " + query.players);
 				
-				player.sendMessage(ChatColor.GREEN + "StatusSign registered sign for " + servername);
+				e.getPlayer().sendMessage(ChatColor.GREEN + "StatusSign registered sign for " + servername);
 			} else {
-				player.sendMessage(ChatColor.RED + "Server does not exist in config.yml!");
+				e.getPlayer().sendMessage(ChatColor.RED + "Server does not exist in config.yml!");
 			}
 		}
 	}
