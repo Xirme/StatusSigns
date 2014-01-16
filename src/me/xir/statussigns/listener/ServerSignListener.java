@@ -24,6 +24,7 @@ public class ServerSignListener implements Listener {
 		plugin = p;
 	}
 	
+	
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
 		
@@ -36,7 +37,7 @@ public class ServerSignListener implements Listener {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
 				
-				HashMap JSON = queryServer(e.getLine(1));
+				StatusSignsDatatypes JSON = queryServer(e.getLine(1));
 				//do to check if offline or online
 				if (JSON == null || JSON.get("status").equals("false")) {
 					//TODO: Handle offline properly.
@@ -51,7 +52,6 @@ public class ServerSignListener implements Listener {
 	
 	public static StatusSignsDatatypes queryServer(String server) {
 		FileConfiguration config = plugin.getConfig();
-		
 		try { 
 			URL url = new URL("http://api.iamphoenix.me/get/?server_ip=" + config.getString("serversigns.servers." + server + ".ip") + ":" + config.getString("serversigns.servers." + server + ".port"));
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
