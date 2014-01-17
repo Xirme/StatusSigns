@@ -9,12 +9,15 @@ import java.net.URL;
 import me.xir.statussigns.StatusSigns;
 import me.xir.statussigns.StatusSignsDatatypes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class ServerSignListener implements Listener {
 	
@@ -37,10 +40,7 @@ public class ServerSignListener implements Listener {
 			// Rule two: Don't make a variable for anything you only call once.
 			if (config.getString("serversigns.servers." + servername) != null) {
 				StatusSignsDatatypes query = queryServer(servername);
-	
-				/*
-				 * TODO: Threaded checking and checks done every 60 seconds.
-				 */
+				
 				e.setLine(0, servername);
 				if (query == null || !query.status) {
 					//TODO: Handle offline properly.
